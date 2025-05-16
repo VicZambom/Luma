@@ -1,5 +1,10 @@
-# CodeSquad
+## 💻 CodeSquad
 
-## Membros:
+**Membros:**
 
-## João Carlos, Manoel Olimpio, Thiago Vinicius, Virginia Fernandes, Victória de Gouveia, Maria Isabela, Maria Eduarada, Amanda Ellem
+| 👨‍💻 Programadores    | 🎨 Designers       |
+| ------------------- | ------------------ |
+| João Carlos         | Thiago Vinícius    |
+| Manoel Olimpio      | Virginia Fernandes |
+| Victória de Gouveia | Maria Eduarada     |
+| Maria Isabela       | Amanda Ellem       |
