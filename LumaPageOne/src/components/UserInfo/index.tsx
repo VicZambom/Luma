@@ -11,13 +11,11 @@ const UserCardContainer = styled("div")<{ cardWidth: string }>`
   height: 10.2rem;
   padding: 32px 0;
   width: ${(props) => props.cardWidth};
-  /* max-width: 100%; */
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 16px;
-  /* margin-top: 32px; */
+  border-radius: 1rem;
 `;
 
 const AvatarImage = styled("img")`
@@ -31,7 +29,7 @@ const UserInfoName = styled("div")`
   flex-direction: column;
   margin-top: 1rem;
   gap: 0.1rem;
-  margin-right: auto; /* Empurra as informações do usuário para a esquerda */
+  margin-right: auto;
 `;
 
 const UserInfoDescription = styled("p")({

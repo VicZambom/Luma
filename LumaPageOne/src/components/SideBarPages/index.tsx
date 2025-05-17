@@ -118,7 +118,6 @@ export function PersistentDrawerLeft({
   setOpen,
 }: PersistentDrawerLeftProps) {
   const navigate = useNavigate();
-  // const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const location = useLocation();
 
@@ -144,14 +143,19 @@ export function PersistentDrawerLeft({
   );
   const handleItemClick = (path: string) => {
     navigate(path);
-    // setSelectedIndex(index);
     setOpen(false);
   };
 
   const selectedIndex = React.useMemo(() => {
-    const index = sideBarItems.findIndex((item) =>
-      location.pathname.startsWith(item.path)
-    );
+    const index = sideBarItems.findIndex((item) => {
+      if (location.pathname === item.path) {
+        return true;
+      }
+      if (item.path === "/app/ponto") {
+        return location.pathname.startsWith(item.path + "/");
+      }
+      return false;
+    });
     return index > -1 ? index : 0;
   }, [location.pathname, sideBarItems]);
 
@@ -162,9 +166,9 @@ export function PersistentDrawerLeft({
         <Toolbar
           sx={{
             justifyContent: "space-between",
-            ml: "11rem",
+            mt: "0.5rem",
+            ml: "12rem",
             background: "transparent",
-            boxShadow: "none",
           }}
         >
           <IconButton
@@ -180,6 +184,22 @@ export function PersistentDrawerLeft({
           </IconButton>
         </Toolbar>
       </AppBar>
+      <Box
+        sx={{
+          position: "fixed",
+          top: (theme) => theme.spacing(2),
+          left: (theme) => theme.spacing(2),
+          zIndex: (theme) => theme.zIndex.drawer + 2,
+          display: { xs: "block", sm: "block" },
+        }}
+      >
+        <img
+          src={Logo}
+          alt="Logo da Luma"
+          height="30"
+          style={{ background: "white" }}
+        />
+      </Box>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -194,6 +214,13 @@ export function PersistentDrawerLeft({
             position: "fixed",
             height: "100vh",
             top: 0,
+            left: 0,
+            transform: open ? "translateX(0)" : `translateX(-${drawerWidth}px)`,
+            transition: (theme) =>
+              theme.transitions.create("transform", {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
           },
         }}
         variant="persistent"
@@ -210,14 +237,7 @@ export function PersistentDrawerLeft({
             ...(theme) => theme.mixins.toolbar,
             justifyContent: "center",
           }}
-        >
-          <img
-            src={Logo}
-            alt="Logo da Luma"
-            height="30"
-            style={{ background: "white" }}
-          />
-        </DrawerHeader>
+        />
         <Divider />
         <List
           sx={{
@@ -237,8 +257,8 @@ export function PersistentDrawerLeft({
                 sx={{
                   backgroundColor:
                     selectedIndex === index ? "white" : "transparent",
-                  borderRadius: "40px",
-                  marginRight: "-1px",
+                  borderRadius: "20px",
+                  marginRight: "-25px",
                   paddingRight: "24px",
                   "&:hover": {
                     backgroundColor:

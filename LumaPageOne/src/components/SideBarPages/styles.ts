@@ -52,7 +52,7 @@ export const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
-  color: "#fff",
+  color: "#F2F3F5",
   "&:hover": {
     backgroundColor: "rgba(255, 255, 255, 0.1)",
   },

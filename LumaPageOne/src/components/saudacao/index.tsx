@@ -15,6 +15,7 @@ export const Greeting: React.FC<GreetingProps> = ({ name }) => {
         marginBottom: 2,
         textAlign: "left",
         width: "100%",
+        mt: -10,
       }}
     >
       Olá, {name}

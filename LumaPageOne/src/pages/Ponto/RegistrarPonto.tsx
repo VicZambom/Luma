@@ -73,14 +73,29 @@ export function RegistrarPonto({ userId }: RegistrarPontoProps) {
   };
   return (
     <>
-      <Greeting name={userName} />
-      <UserCardInfo {...userInfoData} cardWidth="100%" />
-      <Box //
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          paddingTop: "5.5rem",
+        }}
+      >
+        <Box sx={{ marginBottom: "2.5rem", marginLeft: 1.5 }}>
+          <Greeting name={userName} />
+        </Box>
+      </Box>
+      <Box sx={{ marginLeft: "1rem", marginTop: "-4.5rem" }}>
+        <UserCardInfo {...userInfoData} cardWidth="100%" />
+      </Box>
+      <Box
         sx={{
           display: "flex",
           alignItems: "center",
           mt: 3,
-          mb: 2,
+          mb: -3,
+          paddingLeft: "1.8rem",
         }}
       >
         <Divider
@@ -89,7 +104,7 @@ export function RegistrarPonto({ userId }: RegistrarPontoProps) {
             height: "20px",
             width: "3px",
             bgcolor: "#5D3998",
-            mr: 1,
+            mr: 0.5,
           }}
         />
         <Typography variant="subtitle1" color="textSecondary">
@@ -114,6 +129,7 @@ export function RegistrarPonto({ userId }: RegistrarPontoProps) {
             position: "relative",
             display: "flex",
             flexDirection: "column",
+            mt: 2,
           }}
         >
           <IconButton
@@ -126,162 +142,166 @@ export function RegistrarPonto({ userId }: RegistrarPontoProps) {
           <Typography variant="h5" fontWeight="bold" mb={2}>
             Registrar ponto
           </Typography>
+          <Box sx={{ p: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Registrar ponto
+            </Typography>
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              flexDirection: { xs: "column", md: "row" },
-              mb: 2,
-              alignItems: "stretch",
-              flexGrow: 1,
-            }}
-          >
-            <Paper // MARCAÇÕES DE HOJE
+            {/* Container principal em Grid */}
+            <Box
               sx={{
-                width: { xs: "100%", md: "480px" },
-                flexShrink: 0,
-                maxWidth: "700px",
-                height: "400px",
-                borderRadius: "10px",
-                padding: 2,
-                marginRight: "35px",
-                background: "rgba(105, 69, 164, 0.13)",
-                border: "1px solid #5D3998",
-                flexGrow: 1,
-                display: "flex",
-                flexDirection: "column",
+                display: "grid",
+                gap: 2,
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  md: "480px 1fr",
+                },
+                gridTemplateRows: {
+                  xs: "auto auto auto",
+                  md: "1fr auto",
+                },
+                mb: 2,
               }}
             >
-              <Box sx={{ flexGrow: 1 }}>
+              {/* MARCAÇÕES DE HOJE */}
+              <Paper
+                sx={{
+                  gridRow: { xs: "1", md: "1 / 3" },
+                  gridColumn: "1",
+                  display: "flex",
+                  flexDirection: "column",
+                  borderRadius: "10px",
+                  p: 2,
+                  background: "rgba(105, 69, 164, 0.13)",
+                  border: "1px solid #5D3998",
+                }}
+              >
+                <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                  <Typography variant="subtitle1" fontWeight="bold" mb={1}>
+                    MARCAÇÕES DE HOJE
+                  </Typography>
+                  <Divider sx={{ mb: 1, mt: 2, background: "#5D3998" }} />
+
+                  <Box
+                    sx={{
+                      backgroundColor: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      p: "0.5rem 1rem",
+                      my: 0,
+                    }}
+                  >
+                    <Typography>Quarta-feira |</Typography>
+                    <Typography sx={{ ml: 1 }}>09:10:12</Typography>
+                  </Box>
+
+                  <Divider sx={{ mb: 1, mt: 1, background: "#5D3998" }} />
+                </Box>
+
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                  <Paper
+                    sx={{
+                      borderRadius: "50%",
+                      width: 150,
+                      height: 150,
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      bgcolor: "primary.main",
+                      color: "white",
+                      cursor: "pointer",
+                      background:
+                        "linear-gradient(180deg, #5D3998 0%, #8E6CAC 100%)",
+                    }}
+                    onClick={handleBaterPonto}
+                  >
+                    <Typography fontWeight="bold" variant="h6">
+                      Bater ponto
+                    </Typography>
+                    <Typography variant="caption">Clique duas vezes</Typography>
+                  </Paper>
+                </Box>
+              </Paper>
+
+              {/* MAPA */}
+              <Box
+                sx={{
+                  gridRow: "1",
+                  gridColumn: { xs: "1", md: "2" },
+                  height: { xs: "300px", md: "400px" },
+                  borderRadius: "10px",
+                  border: "1px solid #5D3998",
+                  overflow: "hidden",
+                }}
+              >
+                <MapContainer
+                  center={simulatedUserLocation}
+                  zoom={zoomLevel}
+                  style={{ height: "100%", width: "100%" }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker position={simulatedUserLocation}>
+                    <Popup>Você está aqui!</Popup>
+                  </Marker>
+                </MapContainer>
+              </Box>
+
+              {/* ESCALA DE HOJE */}
+              <Paper
+                sx={{
+                  gridRow: { xs: "3", md: "2" },
+                  gridColumn: { xs: "1", md: "2" },
+                  borderRadius: "10px",
+                  p: 2,
+                  border: "1px solid #5D3998",
+                  background: "rgba(105, 69, 164, 0.13)",
+                }}
+              >
                 <Typography variant="subtitle1" fontWeight="bold" mb={1}>
-                  MARCAÇÕES DE HOJE
+                  ESCALA DE HOJE
                 </Typography>
                 <Divider sx={{ mb: 1, mt: 2, background: "#5D3998" }} />
-                <Typography>Quarta-feira | 09:10:12 </Typography>
-                <Typography></Typography>
-                <Divider sx={{ mb: 1, mt: 1, background: "#5D3998" }} />
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  mt: 2,
-                }}
-              >
-                <Paper
+                <Typography>Horário Esperado</Typography>
+                <Box
                   sx={{
-                    borderRadius: "50%",
-                    width: 150,
-                    height: 150,
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    bgcolor: "primary.main",
-                    color: "white",
-                    cursor: "pointer",
-                    background:
-                      "linear-gradient(180deg, #5D3998 0%, #8E6CAC 100%);",
+                    lineHeight: "1.5",
+                    mt: 1,
                   }}
-                  onClick={handleBaterPonto}
                 >
-                  <Typography fontWeight="bold" variant="h6">
-                    Bater ponto
-                  </Typography>
-                  <Typography variant="caption">Clique duas vezes</Typography>
-                </Paper>
-              </Box>
-            </Paper>
-
-            <Box // MAPA
-              sx={{
-                width: { xs: "100%", md: "100%" },
-                maxWidth: "700px",
-                flexShrink: 0,
-                height: "400px",
-                borderRadius: "10px",
-                border: "1px solid #5D3998",
-              }}
-            >
-              <MapContainer
-                center={simulatedUserLocation}
-                zoom={zoomLevel}
-                style={{ height: "100%", width: "100%", borderRadius: "10px" }}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={simulatedUserLocation}>
-                  <Popup>Você está aqui!</Popup>
-                </Marker>
-              </MapContainer>
+                  <Typography mr={1}>08:00</Typography>
+                  <Typography>-----</Typography>
+                  <Typography mx={1}>12:00</Typography>
+                  <Typography>----</Typography>
+                  <RestaurantOutlined sx={{ mx: 1, verticalAlign: "middle" }} />
+                  <Typography>----</Typography>
+                  <Typography mx={1}>13:00</Typography>
+                  <Typography>-----</Typography>
+                  <Typography ml={1}>18:00</Typography>
+                </Box>
+              </Paper>
             </Box>
-          </Box>
 
-          <Box // ESCALA DE HOJE
-            sx={{
-              display: "flex",
-              alignSelf: "flex-end",
-              width: "auto",
-              maxWidth: "50%",
-            }}
-          >
-            <Paper
-              sx={{
-                width: "700px",
-                height: "150px",
-                flexShrink: 0,
-                borderRadius: "10px",
-                padding: 2,
-                mr: 7,
-                mb: 2,
-                border: "1px solid #5D3998 ",
-                background: "rgba(105, 69, 164, 0.13)",
-              }}
+            {/* Snackbar de confirmação */}
+            <Snackbar
+              open={openSnackbar}
+              autoHideDuration={3000}
+              onClose={handleCloseSnackbar}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <Typography variant="subtitle1" fontWeight="bold" mb={1}>
-                ESCALA DE HOJE
-              </Typography>
-              <Divider sx={{ mb: 1, mt: 2, background: "#5D3998" }} />
-              <Typography>Horário Esperado</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  lineHeight: "1.5",
-                }}
+              <Alert
+                onClose={handleCloseSnackbar}
+                severity="success"
+                sx={{ width: "100%" }}
               >
-                <Typography mr={1} style={{ lineHeight: "inherit" }}>
-                  08:00
-                </Typography>
-                <Typography
-                  style={{ whiteSpace: "nowrap", lineHeight: "inherit" }}
-                >
-                  -----
-                </Typography>
-                <Typography ml={1} mr={1} style={{ lineHeight: "inherit" }}>
-                  12:00
-                </Typography>
-                <Typography style={{ lineHeight: "inherit" }}>----</Typography>
-                <RestaurantOutlined
-                  style={{ margin: "0 8px", verticalAlign: "middle" }}
-                />{" "}
-                <Typography style={{ lineHeight: "inherit" }}>----</Typography>
-                <Typography ml={1} mr={1} style={{ lineHeight: "inherit" }}>
-                  13:00
-                </Typography>
-                <Typography
-                  style={{ whiteSpace: "nowrap", lineHeight: "inherit" }}
-                >
-                  -----
-                </Typography>
-                <Typography ml={1} style={{ lineHeight: "inherit" }}>
-                  18:00
-                </Typography>
-              </Box>
-            </Paper>
+                Ponto registrado com sucesso!
+              </Alert>
+            </Snackbar>
           </Box>
 
           <Snackbar
