@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LeftImageSection } from "../../components/LeftSection"; 
+import { LeftImageSection } from "../../components/LeftSection";
 import { Container } from "./styles";
 
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
@@ -84,8 +84,7 @@ export function LoginSignUp({ onLogin }: LoginSignUpProps) {
     // Simula busca no "banco de dados"
     const usuarioEncontrado = usuariosMock.find(
       (u) =>
-        u.email.toLowerCase() === usuario.toLowerCase() ||
-        u.cpf === usuario
+        u.email.toLowerCase() === usuario.toLowerCase() || u.cpf === usuario
     );
 
     if (!usuarioEncontrado) {
@@ -125,38 +124,49 @@ export function LoginSignUp({ onLogin }: LoginSignUpProps) {
               required
             />
             {errorUsuario && (
-              <p id="usuario-error" style={{ color: "red", fontSize: "0.8rem", marginTop: '0.5rem' }}>
+              <p
+                id="usuario-error"
+                style={{
+                  color: "red",
+                  fontSize: "0.8rem",
+                  marginTop: "0.5rem",
+                }}
+              >
                 {errorUsuario}
               </p>
             )}
           </div>
 
           <div className="inputGroup">
-      <label htmlFor="senha">Senha:</label>
-      <div className="inputWithIcon">
-        <input
-          type={showPassword ? "text" : "password"}
-          id="senha"
-          placeholder="Insira sua Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          required
-        />
-        <VisibilityOutlinedIcon
-            className="icon"
-            onClick={() => setShowPassword(!showPassword)}
-            style={{ cursor: "pointer" }}
-          />
-      </div>
-      {errorSenha && (
-        <p
-          id="senha-error"
-          style={{ color: "red", fontSize: "0.8rem", marginTop: "0.5rem" }}
-        >
-          {errorSenha}
-        </p>
-      )}
-    </div>
+            <label htmlFor="senha">Senha:</label>
+            <div className="inputWithIcon">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="senha"
+                placeholder="Insira sua Senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                required
+              />
+              <VisibilityOutlinedIcon
+                className="icon"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+            {errorSenha && (
+              <p
+                id="senha-error"
+                style={{
+                  color: "red",
+                  fontSize: "0.8rem",
+                  marginTop: "0.5rem",
+                }}
+              >
+                {errorSenha}
+              </p>
+            )}
+          </div>
 
           <div className="rememberForgot">
             <a href="#">Esqueceu sua senha?</a>
