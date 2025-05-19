@@ -25,3 +25,7 @@ dist-ssr
 
 # folder
 .vite
+
+# Duas pastas sem serventia porém servirá de backup/comparação
+_eslint.config.js
+_eslintrc_disabled.json

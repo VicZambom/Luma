@@ -22,12 +22,22 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    /* Paths for type declarations*/
-
+    /* Paths for type declarations */
     "typeRoots": [
       "./node_modules/@types",
-      "./types" // Adicione esta linha para incluir a pasta 'types' na raiz
-    ]
+      "./@types", // Ponto principal para suas declarações customizadas
+      "./src/types" // Opcional (para declarações específicas do src)
+    ],
+
+    /* Configurações recomendadas */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
   },
-  "include": ["src", "types/**/*"]
+  "include": [
+    "src",
+    "@types/**/*", // Inclui explicitamente sua pasta @types
+    "src/types/**/*" // Mantido para compatibilidade
+  ],
+  "exclude": ["node_modules", "dist", "**/*.spec.ts"]
 }

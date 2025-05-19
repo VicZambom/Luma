@@ -9,6 +9,7 @@ import Logo from "../../assets/LogoFudida.png";
 import { Link, useNavigate } from "react-router-dom";
 
 type CadastroSignUpProps = {
+  // eslint-disable-next-line no-unused-vars
   onRegister: (msg: string) => void;
 };
 

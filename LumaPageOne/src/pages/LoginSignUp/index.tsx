@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { LeftImageSection } from "../../components/LeftSection";
 import { Container } from "./styles";
@@ -12,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 type LoginSignUpProps = {
+  // eslint-disable-next-line no-unused-vars
   onLogin: (msg: string) => void;
 };
 
