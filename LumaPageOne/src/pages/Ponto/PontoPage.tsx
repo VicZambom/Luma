@@ -29,17 +29,17 @@ export const PontoPage: React.FC = () => {
     {
       icon: <AccessTimeOutlined sx={{ fontSize: "3rem" }} />,
       title: "Registrar Ponto",
-      path: "registrar", // apenas o segmento final
+      path: "ponto/registrar", // apenas o segmento final
     },
     {
       icon: <EditNoteOutlined sx={{ fontSize: "3rem" }} />,
       title: "Solicitar Abono",
-      path: "solicitar-abono",
+      path: "ponto/solicitar-abono",
     },
     {
       icon: <PunchClock sx={{ fontSize: "3rem" }} />,
       title: "Espelho de Ponto",
-      path: "espelho-de-ponto",
+      path: "espelhoponto",
     },
   ];
 
@@ -82,7 +82,7 @@ export const PontoPage: React.FC = () => {
           {pontoHomeItems.map((item) => (
             <Link
               key={item.title}
-              to={`/app/ponto/${item.path}`}
+              to={`/app/${item.path}`}
               style={{
                 textDecoration: "none",
                 color: "inherit",

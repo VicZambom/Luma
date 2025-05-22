@@ -8,6 +8,7 @@ import { CadastroSignUp } from "./pages/CadastroSignUp";
 import { defaultTheme } from "./styles/themes/default";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/global";
+import { EspelhoPontoPage } from "./pages/EspelhoPonto/EspelhoPontoPage";
 
 export function App() {
   return (
@@ -32,8 +33,10 @@ export function App() {
               path="ponto/registrar"
               element={<RegistrarPonto userId="string" />}
             />
+            <Route path="espelhoponto" element={<EspelhoPontoPage />} />
           </Route>
-
+          
+          
           <Route path="*" element={<Navigate to="/app/inicio" replace />} />
         </Routes>
       </BrowserRouter>
