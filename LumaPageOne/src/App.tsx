@@ -9,6 +9,7 @@ import { defaultTheme } from "./styles/themes/default";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/global";
 import { EspelhoPontoPage } from "./pages/EspelhoPonto/EspelhoPontoPage";
+import { SolicitarAbonoPage } from "./pages/abono";
 
 export function App() {
   return (
@@ -31,9 +32,16 @@ export function App() {
 
             <Route
               path="ponto/registrar"
-              element={<RegistrarPonto userId="string" />}
-            />
-            <Route path="espelhoponto" element={<EspelhoPontoPage />} />
+              element={<RegistrarPonto userId="string" />} />
+
+            <Route 
+              path="espelhoponto" 
+              element={<EspelhoPontoPage />} />
+
+            <Route 
+              path="/abono/solicitar" 
+              element={<SolicitarAbonoPage />} />
+
           </Route>
           
           

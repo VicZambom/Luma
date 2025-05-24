@@ -34,7 +34,7 @@ export const PontoPage: React.FC = () => {
     {
       icon: <EditNoteOutlined sx={{ fontSize: "3rem" }} />,
       title: "Solicitar Abono",
-      path: "ponto/solicitar-abono",
+      path: "ponto/SolicitarAbono",
     },
     {
       icon: <PunchClock sx={{ fontSize: "3rem" }} />,
