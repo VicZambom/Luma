@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
@@ -9,16 +9,24 @@ import {
   Paper,
   Divider,
   SnackbarCloseReason,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
 } from "@mui/material";
 import {
   ArrowBackIosOutlined as ArrowBack,
   RestaurantOutlined,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
 } from "@mui/icons-material";
 import L from "leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
 import { Snackbar, Alert } from "@mui/material";
 import { UserCardInfo } from "../../components/UserInfo";
 import { Greeting } from "../../components/saudacao";
@@ -30,6 +38,12 @@ const DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
+interface Ponto {
+  id: string;
+  dataHora: string;
+  timestamp: number;
+}
+
 interface RegistrarPontoProps {
   userId: "string";
 }
@@ -37,6 +51,16 @@ interface RegistrarPontoProps {
 export function RegistrarPonto({ userId }: RegistrarPontoProps) {
   const navigate = useNavigate();
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  // Array de objetos Ponto
+  const [marcacoesDeHoje, setMarcacoesDeHoje] = useState<Ponto[]>([]);
+
+  // Estados para o modal de edição
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [currentPontoToEdit, setCurrentPontoToEdit] = useState<Ponto | null>(
+    null
+  );
+  const [editedDateTime, setEditedDateTime] = useState("");
+
   console.log("ID do Usuário", userId);
 
   const simulatedUserLocation = {
@@ -46,6 +70,26 @@ export function RegistrarPonto({ userId }: RegistrarPontoProps) {
   const zoomLevel = 15;
 
   const handleBaterPonto = () => {
+    const now = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    };
+    const formattedDateTime = now
+      .toLocaleDateString("pt-BR", options)
+      .replace(",", " |");
+
+    const newPonto: Ponto = {
+      id: now.getTime().toString(),
+      dataHora: formattedDateTime,
+      timestamp: now.getTime(),
+    };
+
+    // Adiciona a nova marcação ao início do array
+    setMarcacoesDeHoje((prevMarcacoes) => [newPonto, ...prevMarcacoes]);
     console.log("Ponto batido!");
     setOpenSnackbar(true);
   };
@@ -73,6 +117,41 @@ export function RegistrarPonto({ userId }: RegistrarPontoProps) {
   const handleVoltar = () => {
     navigate("/app/ponto");
   };
+
+  //Função de Edição e Remoção
+
+  const handleOpenEditModal = (ponto: Ponto) => {
+    setCurrentPontoToEdit(ponto);
+    setEditedDateTime(ponto.dataHora);
+    setEditModalOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditModalOpen(false);
+    setCurrentPontoToEdit(null);
+    setEditedDateTime("");
+  };
+
+  const handleSaveEditedPonto = () => {
+    if (currentPontoToEdit && editedDateTime.trim() != "") {
+      setMarcacoesDeHoje((prevMarcacoes) =>
+        prevMarcacoes.map((ponto) =>
+          ponto.id === currentPontoToEdit.id
+            ? { ...ponto, dataHora: editedDateTime }
+            : ponto
+        )
+      );
+      handleCloseEditModal();
+      setOpenSnackbar(true);
+    }
+  };
+  const handleRemovePonto = (idToRemove: string) => {
+    setMarcacoesDeHoje((prevMarcacoes) =>
+      prevMarcacoes.filter((ponto) => ponto.id !== idToRemove)
+    );
+    setOpenSnackbar(true);
+  };
+
   return (
     <>
       <Box
@@ -183,20 +262,53 @@ export function RegistrarPonto({ userId }: RegistrarPontoProps) {
                     MARCAÇÕES DE HOJE
                   </Typography>
                   <Divider sx={{ mb: 1, mt: 2, background: "#5D3998" }} />
-
-                  <Box
-                    sx={{
-                      backgroundColor: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      p: "0.5rem 1rem",
-                      my: 0,
-                    }}
-                  >
-                    <Typography>Quarta-feira |</Typography>
-                    <Typography sx={{ ml: 1 }}>09:10:12</Typography>
-                  </Box>
-
+                  {/* Renderiza as macações de hoje */}
+                  {marcacoesDeHoje.length > 0 ? (
+                    marcacoesDeHoje.map((ponto) => (
+                      <Box
+                        key={ponto.id}
+                        sx={{
+                          backgroundColor: "white",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          p: "0.5rem 1rem",
+                          my: 0,
+                          mb: 1,
+                        }}
+                      >
+                        <Typography>{ponto.dataHora}</Typography>
+                        <Box>
+                          <IconButton
+                            size="small"
+                            onClick={() => handleOpenEditModal(ponto)}
+                            arial-label="editar"
+                          >
+                            <EditIcon sx={{ color: "#5D3998" }} />
+                          </IconButton>
+                          <IconButton
+                            size="small"
+                            onClick={() => handleRemovePonto(ponto.id)}
+                            aria-label="remover"
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Box>
+                      </Box>
+                    ))
+                  ) : (
+                    <Box
+                      sx={{
+                        backgroundColor: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        p: "0.5rem 1rem",
+                        my: 0,
+                      }}
+                    >
+                      <Typography>Nenhuma marcação registrada hoje.</Typography>
+                    </Box>
+                  )}
                   <Divider sx={{ mb: 1, mt: 1, background: "#5D3998" }} />
                 </Box>
 
@@ -322,6 +434,31 @@ export function RegistrarPonto({ userId }: RegistrarPontoProps) {
           </Snackbar>
         </Paper>
       </Box>
+
+      {/* Modal de Edição */}
+      <Dialog open={editModalOpen} onClose={handleCloseEditModal}>
+        <DialogTitle>Corrigir Ponto</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="edited-datetime"
+            label="Nova Data e Hora"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={editedDateTime}
+            onChange={(e) => setEditedDateTime(e.target.value)}
+            helperText="Formato sugerido: Quarta-feira | 09:10:12"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEditModal}>Cancelar</Button>
+          <Button onClick={handleSaveEditedPonto} variant="contained">
+            Salvar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
