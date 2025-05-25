@@ -7,7 +7,7 @@ export const PointActions = () => {
    const iconSize = '3rem';
 
     return (
-    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1 }}>
+    <Box sx={{ display: 'flex', flexDirection: { xs: 'column'}, gap: 1 }}>
 
       <Button variant="outlined" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', borderColor: 'rgba(105, 69, 164)', color: 'black' }}>
         <DownloadIcon sx={{ fontSize: iconSize, marginRight: 1, color: 'rgba(105, 69, 164)' }} />
