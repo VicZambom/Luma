@@ -17,12 +17,13 @@ export function DefaultLayout() {
     >
       <PersistentDrawerLeft open={open} setOpen={setOpen} />
       <Box
+        component="main"
         sx={{
           flexGrow: 1,
           padding: (theme) => theme.spacing(3),
-          ml: -4,
-          mb: -4,
-          mt: -5,
+          // ml: -4,
+          // mb: -4,
+          // mt: -5,
           display: "flex",
           flexDirection: "column",
           width: "100%",

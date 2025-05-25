@@ -1,6 +1,7 @@
 import React from 'react';
 import { Main } from '../../components/SideBarPages';
 import { UserInfoCard } from '../../components/Abono/UserInfoCard';
+import { UserCardInfo } from '../../components/UserInfo';
 import { AbonoForm } from '../../components/Abono/AbonoForm';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -17,13 +18,25 @@ export const SolicitarAbonoPage = () => {
   const [showForm, setShowForm] = React.useState(false);
 
   const handleSolicitarAbonoClick = () => {
+    console.log('Botão Solicitar Abono clicado!');
     setShowForm(true);
   };
 
   return (
     <Main>
+       <h2>Olá, Carlos</h2>
+        <UserCardInfo
+           name={userName}
+           descricao={userRole}
+           avatar={avatarUrl}
+           entradas={entradas}
+           saida={saidas}
+           faltas={faltas}
+           cardWidth={"100%"}
+           />
+
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h6">Solicitar Abono</Typography>
+        <Typography variant="h6" color="textSecondary">Solicitar Abono</Typography>
         <Typography variant="body2">{currentDate}</Typography>
       </Box>
       <UserInfoCard

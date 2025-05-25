@@ -1,21 +1,29 @@
-import React from 'react';
-import { Button, Stack } from '@mui/material';
+import { Button, Box, Typography } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
-import HistoryIcon from '@mui/icons-material/History';
+import DescriptionIcon from '@mui/icons-material/Description';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 export const PointActions = () => {
-  return (
-    <Stack spacing={2}>
-      <Button variant="outlined" startIcon={<DownloadIcon />} size="large">
-        Baixar espelho de ponto
+   const iconSize = '3rem';
+
+    return (
+    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1 }}>
+
+      <Button variant="outlined" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', borderColor: 'rgba(105, 69, 164)', color: 'black' }}>
+        <DownloadIcon sx={{ fontSize: iconSize, marginRight: 1, color: 'rgba(105, 69, 164)' }} />
+        <Typography variant="body2">Baixar espelho de ponto</Typography>
       </Button>
-      <Button variant="outlined" size="large">
-        Acessar resumo do período
+
+      <Button variant="outlined" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', borderColor: 'rgba(105, 69, 164)', color: 'black' }}>
+        <DescriptionIcon sx={{ fontSize: iconSize, marginRight: 1, color: 'rgba(105, 69, 164)' }} />
+        <Typography variant="body2">Acessar resumo do período</Typography>
       </Button>
-      <Button variant="outlined" startIcon={<AccessTimeIcon />} size="large">
-        Banco de horas
+
+      <Button variant="outlined" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', borderColor: 'rgba(105, 69, 164)', color: 'black' }}>
+        <AccessTimeIcon sx={{ fontSize: iconSize, marginRight: 1, color: 'rgba(105, 69, 164)' }} />
+        <Typography variant="body2">Banco de horas</Typography>
       </Button>
-    </Stack>
+
+    </Box>
   );
 };

@@ -18,26 +18,36 @@ interface PointRecordTableProps {
 }
 
 export const PointRecordTable: React.FC<PointRecordTableProps> = ({ records }) => {
+  const rowBorderColor = 'rgba(105, 69, 164, 0.3)';
+
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+    <TableContainer component={Paper} sx={{ maxWidth: 1000, border: 1, borderColor: 'rgba(105, 69, 164)', overflowX: 'auto' }}>
+      <Table sx={{ minWidth: 100 }} aria-label="simple table">
+        <TableHead sx={{ backgroundColor: 'rgba(105, 69, 164, 0.1)' }}>
           <TableRow>
-            <TableCell>Data</TableCell>
-            <TableCell align="right">Entrada</TableCell>
-            <TableCell align="right">Saída</TableCell>
+            <TableCell align="left" sx={{ fontWeight: 'bold', pl: 6, borderBottom: `1px solid ${'rgba(105, 69, 164)'}` }}>Data</TableCell>
+            <TableCell align="center" sx={{ fontWeight: 'bold', borderBottom: `1px solid ${'rgba(105, 69, 164)'}` }}>Entrada</TableCell>
+            <TableCell align="right" sx={{ fontWeight: 'bold', pr: 6, borderBottom: `1px solid ${'rgba(105, 69, 164)'}` }}>Saída</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {records.map((record) => (
             <TableRow
               key={record.date}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{
+                '&:nth-child(even)': {
+                  backgroundColor: 'rgba(105, 69, 164, 0.1)',
+                },
+                '&:last-child td, &:last-child th': { border: 0 },
+                borderBottom: `1px solid ${rowBorderColor}`,
+                '& td': { borderBottom: `1px solid`, borderColor: 'rgba(105, 69, 164)' }, // Remove a borda inferior padrão das células
+                '& th': { borderBottom: `1px solid`, borderColor: 'rgba(105, 69, 164)' }, // Remove a borda inferior padrão das células do cabeçalho (se houver)
+              }}
             >
               <TableCell component="th" scope="row">
                 {record.date}
               </TableCell>
-              <TableCell align="right">{record.entrada}</TableCell>
+              <TableCell align="center">{record.entrada}</TableCell>
               <TableCell align="right">{record.saida}</TableCell>
             </TableRow>
           ))}

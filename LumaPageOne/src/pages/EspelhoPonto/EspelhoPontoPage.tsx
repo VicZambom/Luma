@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Box, Typography, Divider } from '@mui/material';
 import { Main } from '../../components/SideBarPages';
 import { UserCardInfo } from '../../components/UserInfo';
 import { PointRecordTable } from '../../components/EspelhoPonto/PointRecordTable';
@@ -11,7 +13,7 @@ export const EspelhoPontoPage = () => {
   const entradas = 4; 
   const saidas = 3;
   const faltas = 0; 
-  const currentMonth = "MAIO 2025"; 
+  const [currentMonth, setCurrentMonth] = useState(new Date()); // Estado para o mês atual (inicializado com a data atual)
   const pointRecords = [
     { date: "15/05", entrada: "", saida: "" },
     { date: "16/05", entrada: "", saida: "" },
@@ -23,17 +25,29 @@ export const EspelhoPontoPage = () => {
     { date: "22/05", entrada: "", saida: "" },
   ]; 
 
-  const handlePreviousMonth = () => {
-    console.log("Mês anterior");
-  };
-
-  const handleNextMonth = () => {
-    console.log("Próximo mês");
-  };
+ const handlePreviousMonth = () => {
+    setCurrentMonth((prevMonth) => {
+      const newMonth = new Date(prevMonth);
+      newMonth.setMonth(newMonth.getMonth() - 1);
+      return newMonth;
+    });
+    // Aqui você também pode chamar uma função para buscar os dados do novo mês
+     console.log("Mês anterior");
+   };
+ 
+   const handleNextMonth = () => {
+    setCurrentMonth((prevMonth) => {
+      const newMonth = new Date(prevMonth);
+      newMonth.setMonth(newMonth.getMonth() + 1);
+      return newMonth;
+    });
+    // Aqui você também pode chamar uma função para buscar os dados do novo mês
+     console.log("Próximo mês");
+   };
 
   return (
     <Main>
-      <h2>Espelho de Ponto</h2>
+      <h2>Olá, Carlos</h2>
       <UserCardInfo
         name={userName}
         descricao={userRole}
@@ -43,13 +57,48 @@ export const EspelhoPontoPage = () => {
         faltas={faltas}
         cardWidth={"100%"}
       />
-      <PeriodSelector
-        currentMonth={currentMonth}
-        onPrevious={handlePreviousMonth}
-        onNext={handleNextMonth}
-      />
-      <PointRecordTable records={pointRecords} />
-      <PointActions />
+
+        {/* Container principal */}
+        <Box sx={{ padding: 3 }}/>
+
+          {/* Título com Seta para a Esquerda */}
+          <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}> 
+            <Typography variant="h6">Espelho de Ponto</Typography>
+            </Box>
+
+        {/* Caixa de Período (Centralizada) */}
+       {/* Caixa de Período (Centralizada) */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 3 }}>
+        <PeriodSelector
+          currentMonth={new Intl.DateTimeFormat('pt-BR', { year: 'numeric', month: 'long' }).format(currentMonth).toUpperCase()}
+          onPrevious={handlePreviousMonth}
+          onNext={handleNextMonth}
+        />
+      </Box>
+
+      {/* Separador visual */}
+      <Box sx={{ mt: 4 }}>
+        <Divider />
+      </Box>
+
+         {/* Container Principal (Layout em Linha) */}
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 5,
+              alignItems: 'flex-start',
+              flexDirection: { xs: 'column', md: 'row' },
+            }}
+          >
+
+         {/* Parte Esquerda: Lista de Datas, Entrada e Saída */}
+          <Box sx={{ flex: 1, width: { xs: '100%', md: 'auto' } }}> {/* Largura total em xs */}
+            <PointRecordTable records={pointRecords} />
+          </Box>
+
+          {/* Parte Direita: Botões de Ação */}
+          <PointActions />
+            </Box>
     </Main>
   );
 };

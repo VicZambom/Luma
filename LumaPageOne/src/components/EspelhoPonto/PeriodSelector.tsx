@@ -1,9 +1,7 @@
 import React from 'react';
-import { Button, IconButton } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 interface PeriodSelectorProps {
   currentMonth: string;
@@ -12,17 +10,28 @@ interface PeriodSelectorProps {
 }
 
 export const PeriodSelector: React.FC<PeriodSelectorProps> = ({ currentMonth, onPrevious, onNext }) => {
+  const borderColor = 'rgba(105, 69, 164)'; // Define a cor da borda
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-      <IconButton onClick={onPrevious} aria-label="previous month">
-        <ArrowBackIosNewIcon />
-      </IconButton>
-      <Typography variant="h6" component="div">
-        {currentMonth}
-      </Typography>
-      <IconButton onClick={onNext} aria-label="next month">
-        <ArrowForwardIosIcon />
-      </IconButton>
+    <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'center', border: `1px solid ${borderColor}`, borderRadius: 1, padding: '4px', backgroundColor:  'rgba(105, 69, 164, 0.1)' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'auto' }}>
+        <IconButton onClick={onPrevious} aria-label="mês anterior" sx={{ mr: 2 }}>
+          <ArrowLeftIcon sx={{ fontSize: 'inherit' }} />
+        </IconButton>
+        <Typography
+          variant="h6"
+          sx={{
+            textAlign: 'center',
+            color: 'rgba(105, 69, 164)',
+            mx: 2,
+            fontWeight: 'bold', // Adicionando fontWeight: 'bold'
+          }}
+        >
+          {currentMonth}
+        </Typography>
+        <IconButton onClick={onNext} aria-label="próximo mês" sx={{ ml: 2 }}>
+          <ArrowRightIcon sx={{ fontSize: 'inherit' }} />
+        </IconButton>
+      </Box>
     </Box>
   );
 };

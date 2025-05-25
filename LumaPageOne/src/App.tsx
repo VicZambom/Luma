@@ -39,7 +39,7 @@ export function App() {
               element={<EspelhoPontoPage />} />
 
             <Route 
-              path="/abono/solicitar" 
+              path="abono/solicitar" 
               element={<SolicitarAbonoPage />} />
 
           </Route>
