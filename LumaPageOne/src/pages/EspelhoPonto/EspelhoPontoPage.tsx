@@ -58,32 +58,34 @@ export const EspelhoPontoPage = () => {
         cardWidth={"100%"}
       />
 
+      {/* Título com Seta para a Esquerda */}
+      <Box sx={{ padding: 3, display: 'flex', alignItems: 'center', marginBottom: 2 }}> 
+        <Typography variant="h6">Espelho de Ponto</Typography>
+      </Box>
+
+      <Box sx={{ backgroundColor: 'white', padding: 3, borderRadius: 3, marginTop: 3 }}>
+
         {/* Container principal */}
-        <Box sx={{ padding: 3 }}/>
+        <Box sx={{ padding: 2 }}/>
 
-          {/* Título com Seta para a Esquerda */}
-          <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}> 
-            <Typography variant="h6">Espelho de Ponto</Typography>
-            </Box>
+          {/* Caixa de Período (Centralizada) */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 3 }}>
+            <PeriodSelector
+              currentMonth={new Intl.DateTimeFormat('pt-BR', { year: 'numeric', month: 'long' }).format(currentMonth).toUpperCase()}
+              onPrevious={handlePreviousMonth}
+              onNext={handleNextMonth}
+            />
+          </Box>
 
-        {/* Caixa de Período (Centralizada) */}
-       {/* Caixa de Período (Centralizada) */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 3 }}>
-        <PeriodSelector
-          currentMonth={new Intl.DateTimeFormat('pt-BR', { year: 'numeric', month: 'long' }).format(currentMonth).toUpperCase()}
-          onPrevious={handlePreviousMonth}
-          onNext={handleNextMonth}
-        />
-      </Box>
-
-      {/* Separador visual */}
-      <Box sx={{ mt: 4 }}>
-        <Divider />
-      </Box>
+          {/* Separador visual */}
+          <Box sx={{ mt: 4 }}>
+            <Divider />
+          </Box>
 
          {/* Container Principal (Layout em Linha) */}
           <Box
             sx={{
+              backgroundColor: 'white',
               display: 'flex',
               gap: 5,
               alignItems: 'flex-start',
@@ -99,6 +101,7 @@ export const EspelhoPontoPage = () => {
           {/* Parte Direita: Botões de Ação */}
           <PointActions />
             </Box>
+        </Box>
     </Main>
   );
 };

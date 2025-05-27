@@ -21,11 +21,13 @@ export const AbonoForm = () => {
       <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
         <ArrowBackIcon sx={{ mr: 1 }} /> Solicitar Abono
       </Typography>
+      <Box sx={{ backgroundColor:  'rgba(105, 69, 164, 0.1)', padding: 3, borderRadius: 3, marginTop: 3 }}>
       <TextField
         label="Nome do funcionário"
         value="Carlos Moraes" // Valor estático, em breve será dinâmico
         fullWidth
         margin="normal"
+        sx={{backgroundColor: 'white'}}
         disabled
       />
       <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
@@ -34,6 +36,7 @@ export const AbonoForm = () => {
           type="date"
           fullWidth
           margin="normal"
+          sx={{backgroundColor: 'white'}}
           InputLabelProps={{ shrink: true }}
         />
         <TextField
@@ -41,42 +44,46 @@ export const AbonoForm = () => {
           type="date"
           fullWidth
           margin="normal"
+          sx={{backgroundColor: 'white'}}
           InputLabelProps={{ shrink: true }}
         />
       </Box>
-      <TextField
-        label="Justifique-se"
-        multiline
-        rows={4}
-        fullWidth
-        margin="normal"
-      />
-      <Box
-        sx={{
-          border: '1px dashed grey',
-          p: 2,
-          borderRadius: 1,
-          mt: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Typography color="textSecondary">Link ou arraste e solte</Typography>
-        <Typography color="textSecondary" variant="caption">
-          SVG, PNG, JPG (max. 3MB)
-        </Typography>
-        <Input type="file" sx={{ display: 'none' }} id="anexar-documento" onChange={handleAnexarDocumentoChange} />
-        <label htmlFor="anexar-documento">
-          <Button component="span" sx={{ mt: 1 }} variant="outlined" size="small">
-            Anexar documento
-          </Button>
-        </label>
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}> {/* Alteração aqui */}
+        <TextField
+          label="Justifique-se"
+          multiline
+          rows={4}
+          margin="normal"
+          sx={{ width: 600, backgroundColor:'white' }} // Define a largura para 50% do contêiner pai
+        />
+        <Box
+          sx={{
+            border: '1px dashed grey',
+            p: 2,
+            borderRadius: 1,
+            mt: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minWidth: '600px', // Adicione uma largura mínima para evitar que fique muito estreito
+            backgroundColor: 'white'
+          }}
+        >
+          <Typography color="rgba(105, 69, 164)">Link ou arraste e solte</Typography>
+          <Typography color="textSecondary" variant="caption">
+            SVG, PNG, JPG (max. 3MB)
+          </Typography>
+          <Input type="file" sx={{ display: 'none', color: 'rgba(105, 69, 164)' }} id="anexar-documento" onChange={handleAnexarDocumentoChange} />
+          <label htmlFor="anexar-documento">
+            <Button component="span" sx={{ mt: 1, color: 'rgba(105, 69, 164)' }} variant="outlined" size="small">
+              Anexar documento
+            </Button>
+          </label>
+        </Box>
       </Box>
-      <Button variant="contained" onClick={handleEnviarClick} sx={{ mt: 3 }}>
-        Enviar
-      </Button>
     </Box>
+  </Box>
+
   );
 };

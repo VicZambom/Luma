@@ -35,26 +35,15 @@ export const SolicitarAbonoPage = () => {
            cardWidth={"100%"}
            />
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h6" color="textSecondary">Solicitar Abono</Typography>
-        <Typography variant="body2">{currentDate}</Typography>
-      </Box>
-      <UserInfoCard
-        name={userName}
-        descricao={userRole}
-        avatar={avatarUrl}
-        entradas={entradas}
-        saida={saidas}
-        faltas={faltas}
-        cardWidth={"100%"}
-      />
-      {!showForm ? (
-        <Button variant="contained" onClick={handleSolicitarAbonoClick} sx={{ mt: 3 }}>
+    <Box sx={{ backgroundColor: 'white', padding: 3, borderRadius: 3, marginTop: 3 }}>
+
+        <AbonoForm />
+      
+        <Button variant="contained" onClick={handleSolicitarAbonoClick} sx={{ mt: 3, backgroundColor: 'rgba(105, 69, 164)' }}>
           Solicitar Abono
         </Button>
-      ) : (
-        <AbonoForm />
-      )}
+       
+      </Box>
     </Main>
   );
 };
