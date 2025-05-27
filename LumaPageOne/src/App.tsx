@@ -10,6 +10,7 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/global";
 import { EspelhoPontoPage } from "./pages/EspelhoPonto/EspelhoPontoPage";
 import { SolicitarAbonoPage } from "./pages/abono";
+import ErrorPage from "./components/ErrorPage/ErrorPage"; // Importe o componente ErrorPage
 
 export function App() {
   return (
@@ -25,27 +26,24 @@ export function App() {
 
           <Route path="/app" element={<DefaultLayout />}>
             <Route index element={<Navigate to="inicio" replace />} />
-
             <Route path="inicio" element={<Home />} />
-
             <Route path="ponto" element={<PontoPage />} />
-
             <Route
               path="ponto/registrar"
-              element={<RegistrarPonto userId="string" />} />
-
-            <Route 
-              path="espelhoponto" 
-              element={<EspelhoPontoPage />} />
-
-            <Route 
-              path="abono/solicitar" 
-              element={<SolicitarAbonoPage />} />
-
+              element={<RegistrarPonto userId="string" />}
+            />
+            <Route
+              path="espelhoponto"
+              element={<EspelhoPontoPage />}
+            />
+            <Route
+              path="abono/solicitar"
+              element={<SolicitarAbonoPage />}
+            />
           </Route>
-          
-          
-          <Route path="*" element={<Navigate to="/app/inicio" replace />} />
+
+          {/* Rota curinga para qualquer URL não correspondente */}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
